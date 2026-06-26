@@ -1,27 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Design Tokens */
+  /* Professional SaaS Color Palette (Indigo / Tech Blue / Slate) */
   --font-sans: 'Inter', sans-serif;
   --font-heading: 'Outfit', sans-serif;
 
-  --bg-deep: #050508;
-  --bg-card: rgba(13, 12, 29, 0.45);
-  --bg-nav: rgba(5, 5, 8, 0.75);
-  --border-glow: rgba(0, 242, 254, 0.08);
-  --border-glow-hover: rgba(0, 242, 254, 0.25);
+  --bg-deep: #08080c;
+  --bg-card: rgba(17, 17, 28, 0.6);
+  --bg-nav: rgba(8, 8, 12, 0.85);
+  --border-glow: rgba(99, 102, 241, 0.12);
+  --border-glow-hover: rgba(99, 102, 241, 0.35);
   
-  --accent-cyan: #00f2fe;
-  --accent-violet: #8a2be2;
-  --accent-pink: #ff007f;
+  --accent-cyan: #6366f1; /* Professional Indigo */
+  --accent-violet: #3b82f6; /* Royal Blue */
+  --accent-pink: #0ea5e9; /* Light Tech Sky-Blue */
   
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   
-  --shadow-neon: 0 0 20px rgba(0, 242, 254, 0.15);
-  --shadow-neon-hover: 0 0 30px rgba(0, 242, 254, 0.35);
-  --shadow-purple: 0 0 20px rgba(138, 43, 226, 0.15);
+  --shadow-neon: 0 0 25px rgba(99, 102, 241, 0.15);
+  --shadow-neon-hover: 0 0 35px rgba(99, 102, 241, 0.35);
+  --shadow-purple: 0 0 25px rgba(59, 130, 246, 0.15);
   
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -48,7 +48,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: radial-gradient(circle at 50% 0%, rgba(138, 43, 226, 0.08) 0%, rgba(0, 242, 254, 0.03) 50%, rgba(5, 5, 8, 0) 100%), var(--bg-deep);
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(8, 8, 12, 0) 100%), var(--bg-deep);
   overflow-x: hidden;
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(138, 43, 226, 0.3);
+  background: rgba(99, 102, 241, 0.2);
   border-radius: 4px;
 }
 
@@ -159,27 +159,27 @@ a {
 
 .glow-button.primary {
   background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-violet) 100%);
-  color: #000;
-  font-weight: 700;
-  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }
 
 .glow-button.primary:hover {
-  box-shadow: 0 0 25px rgba(0, 242, 254, 0.7);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
   transform: scale(1.03);
 }
 
 .glow-button.secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
 }
 
 .glow-button.secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
   transform: scale(1.03);
 }
 
@@ -191,9 +191,9 @@ a {
 }
 
 @keyframes pulseGlow {
-  0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
-  50% { box-shadow: 0 0 25px rgba(0, 242, 254, 0.4); }
-  100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+  0% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.4); }
+  100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.2); }
 }
 
 @keyframes fadeInUp {

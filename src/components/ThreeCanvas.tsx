@@ -37,11 +37,11 @@ export default function ThreeCanvas() {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x00f2fe, 2, 50);
+    const pointLight1 = new THREE.PointLight(0x6366f1, 2, 50);
     pointLight1.position.set(5, 5, 5);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0x8a2be2, 2, 50);
+    const pointLight2 = new THREE.PointLight(0x3b82f6, 2, 50);
     pointLight2.position.set(-5, -5, 5);
     scene.add(pointLight2);
 
@@ -80,7 +80,7 @@ export default function ThreeCanvas() {
 
     // Material with round soft particles
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x00f2fe,
+      color: 0x6366f1,
       size: 0.045,
       transparent: true,
       opacity: 0.8,
@@ -94,7 +94,7 @@ export default function ThreeCanvas() {
     // 2. Wireframe Central Sphere (dynamic developer grid)
     const sphereGeometry = new THREE.SphereGeometry(2.2, 24, 24);
     const sphereMaterial = new THREE.MeshBasicMaterial({
-      color: 0x8a2be2,
+      color: 0x3b82f6,
       wireframe: true,
       transparent: true,
       opacity: 0.15,
@@ -106,7 +106,7 @@ export default function ThreeCanvas() {
     // 3. Inner Icosahedron Core (floating data cell)
     const coreGeometry = new THREE.IcosahedronGeometry(1.2, 1);
     const coreMaterial = new THREE.MeshBasicMaterial({
-      color: 0xff007f,
+      color: 0x0ea5e9,
       wireframe: true,
       transparent: true,
       opacity: 0.25,
