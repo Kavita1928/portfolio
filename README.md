@@ -59,7 +59,6 @@ To run the portfolio site locally:
 ## 📬 Contact & Profiles
 
 *   **Email**: [kavita.yadav23b@iiitg.ac.in](mailto:kavita.yadav23b@iiitg.ac.in)
-*   **Phone**: +91 7398865618
 *   **LinkedIn**: [linkedin.com/in/kavita-yadav-63276a289](https://www.linkedin.com/in/kavita-yadav-63276a289/)
 *   **GitHub**: [github.com/Kavita1928](https://github.com/Kavita1928)
 *   **LeetCode**: [leetcode.com/u/Kavitayadav_123](https://leetcode.com/u/Kavitayadav_123/)
