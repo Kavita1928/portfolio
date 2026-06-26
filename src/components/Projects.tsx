@@ -29,7 +29,7 @@ export default function Projects() {
         'Designed normalized PostgreSQL schemas and integrated Redis caching to optimize database queries, reducing query latency by 35%.',
         'Deployed the cloud-native application on AWS EC2 instances, achieving 99.5% uptime and supporting seamless multi-user playback synchronization.',
       ],
-      github: 'https://github.com',
+      github: 'https://github.com/Kavita1928/BeatSync',
       live: 'https://beatsync.example.com',
     },
   ];

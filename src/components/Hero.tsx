@@ -189,17 +189,17 @@ export default function Hero() {
             <span>kavita.yadav23b@iiitg.ac.in</span>
           </a>
           <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+          <a href="https://www.linkedin.com/in/kavita-yadav-63276a289/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
             <LinkedinIcon size={15} />
             <span>LinkedIn</span>
           </a>
           <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="https://github.com" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+          <a href="https://github.com/Kavita1928" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
             <GithubIcon size={15} />
             <span>GitHub</span>
           </a>
           <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="https://leetcode.com" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+          <a href="https://leetcode.com/u/Kavitayadav_123/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
             <LeetcodeIcon size={15} />
             <span>LeetCode</span>
           </a>

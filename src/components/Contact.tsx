@@ -131,7 +131,7 @@ export default function Contact() {
             <h4 style={{ color: 'var(--text-primary)', marginBottom: '16px', fontSize: '1.1rem' }}>Find Me Online</h4>
             <div style={{ display: 'flex', gap: '16px' }}>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/kavita-yadav-63276a289/"
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -155,7 +155,7 @@ export default function Contact() {
               </a>
 
               <a
-                href="https://github.com"
+                href="https://github.com/Kavita1928"
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -179,7 +179,7 @@ export default function Contact() {
               </a>
 
               <a
-                href="https://leetcode.com"
+                href="https://leetcode.com/u/Kavitayadav_123/"
                 target="_blank"
                 rel="noreferrer"
                 style={{
