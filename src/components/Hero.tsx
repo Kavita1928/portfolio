@@ -44,7 +44,7 @@ const LeetcodeIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-export default function Hero() {
+export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
   const [typedText, setTypedText] = useState('');
   const [index, setIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0);
@@ -93,7 +93,7 @@ export default function Hero() {
       }}
     >
       {/* 3D WebGL Background Canvas */}
-      <ThreeCanvas />
+      <ThreeCanvas theme={theme} />
 
       {/* Hero Content Overlay */}
       <div

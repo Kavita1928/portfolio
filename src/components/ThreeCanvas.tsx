@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function ThreeCanvas() {
+interface ThreeCanvasProps {
+  theme: 'dark' | 'light';
+}
+
+export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
@@ -11,6 +15,16 @@ export default function ThreeCanvas() {
 
     const container = containerRef.current;
     const canvas = canvasRef.current;
+
+    const isLight = theme === 'light';
+    
+    // Theme-based 3D color choices
+    const colorParticle = isLight ? 0x0d9488 : 0x10b981; // Teal vs Emerald
+    const colorWireframe = isLight ? 0x0f766e : 0x0d9488; // Deep Teal vs Teal
+    const colorCore = isLight ? 0x047857 : 0x34d399; // Forest Green vs Light Green
+    
+    const colorLight1 = isLight ? 0x0d9488 : 0x10b981;
+    const colorLight2 = isLight ? 0x0f766e : 0x0d9488;
 
     // Scene
     const scene = new THREE.Scene();
@@ -34,14 +48,14 @@ export default function ThreeCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, isLight ? 0.6 : 0.4);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x6366f1, 2, 50);
+    const pointLight1 = new THREE.PointLight(colorLight1, 2, 50);
     pointLight1.position.set(5, 5, 5);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0x3b82f6, 2, 50);
+    const pointLight2 = new THREE.PointLight(colorLight2, 2, 50);
     pointLight2.position.set(-5, -5, 5);
     scene.add(pointLight2);
 
@@ -80,10 +94,10 @@ export default function ThreeCanvas() {
 
     // Material with round soft particles
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x6366f1,
+      color: colorParticle,
       size: 0.045,
       transparent: true,
-      opacity: 0.8,
+      opacity: isLight ? 0.6 : 0.8,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
     });
@@ -94,10 +108,10 @@ export default function ThreeCanvas() {
     // 2. Wireframe Central Sphere (dynamic developer grid)
     const sphereGeometry = new THREE.SphereGeometry(2.2, 24, 24);
     const sphereMaterial = new THREE.MeshBasicMaterial({
-      color: 0x3b82f6,
+      color: colorWireframe,
       wireframe: true,
       transparent: true,
-      opacity: 0.15,
+      opacity: isLight ? 0.22 : 0.15,
       blending: THREE.AdditiveBlending,
     });
     const wireframeSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -106,10 +120,10 @@ export default function ThreeCanvas() {
     // 3. Inner Icosahedron Core (floating data cell)
     const coreGeometry = new THREE.IcosahedronGeometry(1.2, 1);
     const coreMaterial = new THREE.MeshBasicMaterial({
-      color: 0x0ea5e9,
+      color: colorCore,
       wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: isLight ? 0.35 : 0.25,
       blending: THREE.AdditiveBlending,
     });
     const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
@@ -137,7 +151,6 @@ export default function ThreeCanvas() {
 
     // Animation Loop
     const clock = new THREE.Clock();
-
     let animationFrameId: number;
 
     const animate = () => {
@@ -211,7 +224,7 @@ export default function ThreeCanvas() {
       coreMaterial.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [theme]); // Rebuild scene on theme change
 
   return (
     <div ref={containerRef} className="canvas-container">

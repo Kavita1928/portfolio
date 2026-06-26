@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Code } from 'lucide-react';
+import { Menu, X, Code, Sun, Moon } from 'lucide-react';
 
-export default function Header() {
+interface HeaderProps {
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
+}
+
+export default function Header({ theme, toggleTheme }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -72,48 +77,78 @@ export default function Header() {
           <span>Kavita.dev</span>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              style={{
-                fontSize: '0.95rem',
-                fontWeight: 500,
-                color: 'var(--text-secondary)',
-                letterSpacing: '0.02em',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--accent-cyan)';
-                e.currentTarget.style.textShadow = '0 0 8px rgba(0, 242, 254, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--text-secondary)';
-                e.currentTarget.style.textShadow = 'none';
-              }}
-            >
-              {link.name}
+        {/* Desktop & Mobile Actions Container */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          {/* Desktop Navigation */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }} className="desktop-nav">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                style={{
+                  fontSize: '0.95rem',
+                  fontWeight: 500,
+                  color: 'var(--text-secondary)',
+                  letterSpacing: '0.02em',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--accent-cyan)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                }}
+              >
+                {link.name}
+              </a>
+            ))}
+            <a href="#contact">
+              <button className="glow-button primary" style={{ padding: '8px 20px', fontSize: '0.85rem' }}>
+                Hire Me
+              </button>
             </a>
-          ))}
-          <a href="#contact">
-            <button className="glow-button primary" style={{ padding: '8px 20px', fontSize: '0.85rem' }}>
-              Hire Me
-            </button>
-          </a>
-        </nav>
+          </nav>
 
-        {/* Mobile Navigation Toggle */}
-        <div
-          className="mobile-toggle"
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            cursor: 'pointer',
-            color: 'var(--text-primary)',
-            display: 'none', // Managed by responsive CSS styles (below)
-          }}
-        >
-          {isOpen ? <X size={26} /> : <Menu size={26} />}
+          {/* Theme Toggle Button (Day & Night Mode) */}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme mode"
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-primary)',
+              cursor: 'pointer',
+              padding: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              transition: 'var(--transition-fast)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+              e.currentTarget.style.color = 'var(--accent-cyan)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+              e.currentTarget.style.color = 'var(--text-primary)';
+            }}
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+
+          {/* Mobile Navigation Toggle */}
+          <div
+            className="mobile-toggle"
+            onClick={() => setIsOpen(!isOpen)}
+            style={{
+              cursor: 'pointer',
+              color: 'var(--text-primary)',
+              display: 'none', // Managed by responsive CSS style block below
+            }}
+          >
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
+          </div>
         </div>
       </div>
 
@@ -126,7 +161,7 @@ export default function Header() {
           right: isOpen ? 0 : '-100%',
           width: '280px',
           height: '100vh',
-          backgroundColor: 'rgba(5, 5, 8, 0.98)',
+          backgroundColor: 'var(--bg-deep)',
           borderLeft: '1px solid var(--border-glow)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
@@ -161,7 +196,7 @@ export default function Header() {
         </a>
       </div>
 
-      {/* Add styling override directly in head for media queries */}
+      {/* Responsive Styles Overlay */}
       <style>{`
         @media (max-width: 768px) {
           .desktop-nav {

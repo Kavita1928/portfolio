@@ -1,15 +1,24 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function FooterCanvas() {
+interface FooterCanvasProps {
+  theme: 'dark' | 'light';
+}
+
+export default function FooterCanvas({ theme }: FooterCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isLight = theme === 'light';
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
 
     const container = containerRef.current;
     const canvas = canvasRef.current;
+    
+    // Theme-based wave grid colors
+    const colorPoints = isLight ? 0x0f766e : 0x10b981; // Deep Teal vs Emerald Green
+    const colorLines = isLight ? 0x14b8a6 : 0x0d9488; // Brighter Teal vs Teal
 
     // Scene
     const scene = new THREE.Scene();
@@ -63,12 +72,12 @@ export default function FooterCanvas() {
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    // Premium Slate-Indigo Points Material
+    // Premium Points Material
     const material = new THREE.PointsMaterial({
-      color: 0x3b82f6, // Royal Blue
+      color: colorPoints,
       size: 0.038,
       transparent: true,
-      opacity: 0.35,
+      opacity: isLight ? 0.45 : 0.35,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
     });
@@ -78,9 +87,9 @@ export default function FooterCanvas() {
 
     // Subtle Grid lines (wireframe planes overlaying grid)
     const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0x6366f1, // Indigo
+      color: colorLines,
       transparent: true,
-      opacity: 0.08,
+      opacity: isLight ? 0.12 : 0.08,
       blending: THREE.AdditiveBlending,
     });
 
@@ -179,7 +188,7 @@ export default function FooterCanvas() {
       });
       renderer.dispose();
     };
-  }, []);
+  }, [theme]); // Rebuild grid when theme swaps
 
   return (
     <div
@@ -192,7 +201,7 @@ export default function FooterCanvas() {
         height: '100%',
         zIndex: 1,
         pointerEvents: 'none',
-        opacity: 0.6,
+        opacity: isLight ? 0.8 : 0.6,
       }}
     >
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />

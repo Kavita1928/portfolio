@@ -1,16 +1,22 @@
 import { ArrowUp } from 'lucide-react';
 import FooterCanvas from './FooterCanvas';
 
-export default function Footer() {
+interface FooterProps {
+  theme: 'dark' | 'light';
+}
+
+export default function Footer({ theme }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const isLight = theme === 'light';
 
   return (
     <footer
       style={{
         borderTop: '1px solid var(--border-glow)',
-        backgroundColor: 'rgba(8, 8, 12, 0.96)',
+        backgroundColor: isLight ? 'rgba(243, 245, 244, 0.96)' : 'rgba(8, 8, 12, 0.96)',
         padding: '60px 24px',
         position: 'relative',
         zIndex: 10,
@@ -18,10 +24,11 @@ export default function Footer() {
         minHeight: '180px',
         display: 'flex',
         alignItems: 'center',
+        transition: 'background-color 0.4s ease',
       }}
     >
       {/* 3D Wave Canvas backdrop */}
-      <FooterCanvas />
+      <FooterCanvas theme={theme} />
 
       {/* Foreground Content */}
       <div
@@ -52,8 +59,8 @@ export default function Footer() {
         <button
           onClick={scrollToTop}
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            backgroundColor: isLight ? 'rgba(0, 0, 0, 0.03)' : 'rgba(255, 255, 255, 0.03)',
+            border: isLight ? '1px solid rgba(0, 0, 0, 0.06)' : '1px solid rgba(255, 255, 255, 0.06)',
             color: 'var(--text-primary)',
             padding: '12px',
             borderRadius: '50%',
@@ -62,15 +69,15 @@ export default function Footer() {
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'var(--transition-fast)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-            e.currentTarget.style.boxShadow = '0 0 15px rgba(99, 102, 241, 0.3)';
+            e.currentTarget.style.boxShadow = '0 0 15px rgba(13, 148, 136, 0.3)';
             e.currentTarget.style.transform = 'translateY(-2px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+            e.currentTarget.style.borderColor = isLight ? 'rgba(0, 0, 0, 0.06)' : 'rgba(255, 255, 255, 0.06)';
             e.currentTarget.style.boxShadow = 'none';
             e.currentTarget.style.transform = 'none';
           }}
