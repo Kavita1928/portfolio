@@ -89,7 +89,7 @@ export default function Contact() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ backgroundColor: 'rgba(0, 242, 254, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(0, 242, 254, 0.15)', display: 'flex' }}>
+                <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(99, 102, 241, 0.15)', display: 'flex' }}>
                   <Mail size={20} style={{ color: 'var(--accent-cyan)' }} />
                 </div>
                 <div>
@@ -101,8 +101,8 @@ export default function Contact() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ backgroundColor: 'rgba(138, 43, 226, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(138, 43, 226, 0.15)', display: 'flex' }}>
-                  <Phone size={20} style={{ color: 'var(--accent-violet)' }} />
+                <div style={{ backgroundColor: 'rgba(244, 63, 94, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(244, 63, 94, 0.15)', display: 'flex' }}>
+                  <Phone size={20} style={{ color: 'var(--accent-contact)' }} />
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Phone</h4>
@@ -113,8 +113,8 @@ export default function Contact() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ backgroundColor: 'rgba(255, 0, 127, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255, 0, 127, 0.15)', display: 'flex' }}>
-                  <MapPin size={20} style={{ color: 'var(--accent-pink)' }} />
+                <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.08)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.15)', display: 'flex' }}>
+                  <MapPin size={20} style={{ color: 'var(--accent-skills)' }} />
                 </div>
                 <div>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Location</h4>
@@ -223,8 +223,8 @@ export default function Contact() {
                   onChange={handleInputChange}
                   required
                   style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: 'var(--input-bg)',
+                    border: '1px solid var(--input-border)',
                     borderRadius: '8px',
                     padding: '12px 16px',
                     color: 'var(--text-primary)',
@@ -233,7 +233,7 @@ export default function Contact() {
                     transition: 'var(--transition-fast)',
                   }}
                   onFocus={(e) => (e.target.style.borderColor = 'var(--accent-cyan)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)')}
+                  onBlur={(e) => (e.target.style.borderColor = 'var(--input-border)')}
                 />
               </div>
 
@@ -246,8 +246,8 @@ export default function Contact() {
                   onChange={handleInputChange}
                   required
                   style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: 'var(--input-bg)',
+                    border: '1px solid var(--input-border)',
                     borderRadius: '8px',
                     padding: '12px 16px',
                     color: 'var(--text-primary)',
@@ -256,7 +256,7 @@ export default function Contact() {
                     transition: 'var(--transition-fast)',
                   }}
                   onFocus={(e) => (e.target.style.borderColor = 'var(--accent-cyan)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)')}
+                  onBlur={(e) => (e.target.style.borderColor = 'var(--input-border)')}
                 />
               </div>
             </div>
@@ -270,8 +270,8 @@ export default function Contact() {
                 onChange={handleInputChange}
                 required
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: 'var(--input-bg)',
+                  border: '1px solid var(--input-border)',
                   borderRadius: '8px',
                   padding: '12px 16px',
                   color: 'var(--text-primary)',
@@ -280,7 +280,7 @@ export default function Contact() {
                   transition: 'var(--transition-fast)',
                 }}
                 onFocus={(e) => (e.target.style.borderColor = 'var(--accent-cyan)')}
-                onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)')}
+                onBlur={(e) => (e.target.style.borderColor = 'var(--input-border)')}
               />
             </div>
 
@@ -293,8 +293,8 @@ export default function Contact() {
                 required
                 rows={5}
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: 'var(--input-bg)',
+                  border: '1px solid var(--input-border)',
                   borderRadius: '8px',
                   padding: '12px 16px',
                   color: 'var(--text-primary)',
@@ -304,7 +304,7 @@ export default function Contact() {
                   resize: 'vertical',
                 }}
                 onFocus={(e) => (e.target.style.borderColor = 'var(--accent-cyan)')}
-                onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.08)')}
+                onBlur={(e) => (e.target.style.borderColor = 'var(--input-border)')}
               />
             </div>
 

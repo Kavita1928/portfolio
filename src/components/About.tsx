@@ -128,7 +128,7 @@ export default function About() {
             className="glass-card"
             style={{
               padding: '24px',
-              background: 'linear-gradient(135deg, rgba(0, 242, 254, 0.05) 0%, rgba(138, 43, 226, 0.05) 100%)',
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%)',
             }}
           >
             <h4 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>Academic Rigor & Core Focus</h4>

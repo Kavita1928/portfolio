@@ -116,10 +116,10 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
             textTransform: 'uppercase',
             letterSpacing: '0.2em',
             color: 'var(--accent-cyan)',
-            background: 'rgba(0, 242, 254, 0.06)',
+            background: 'rgba(16, 185, 129, 0.06)',
             padding: '6px 16px',
             borderRadius: '20px',
-            border: '1px solid rgba(0, 242, 254, 0.15)',
+            border: '1px solid rgba(16, 185, 129, 0.15)',
           }}
         >
           Welcome to my Space
@@ -219,9 +219,9 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
 
         {/* Call to Actions */}
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '8px' }}>
-          <a href="#projects">
+          <a href="https://github.com/Kavita1928/BeatSync" target="_blank" rel="noreferrer">
             <button className="glow-button primary">
-              View Featured Project <ArrowRight size={18} />
+              View Featured Project (BeatSync) <ArrowRight size={18} />
             </button>
           </a>
           <a href="#resume">
@@ -244,7 +244,7 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
           }}
         >
           <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
-            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(0, 242, 254, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(0, 242, 254, 0.2)' }}>
+            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
               <Award style={{ color: 'var(--accent-cyan)' }} size={24} />
             </div>
             <div>
@@ -254,7 +254,7 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
           </div>
 
           <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
-            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(138, 43, 226, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(138, 43, 226, 0.2)' }}>
+            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(13, 148, 136, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(13, 148, 136, 0.2)' }}>
               <Zap style={{ color: 'var(--accent-violet)' }} size={24} />
             </div>
             <div>
@@ -264,7 +264,7 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
           </div>
 
           <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
-            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(255, 0, 127, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255, 0, 127, 0.2)' }}>
+            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(20, 184, 166, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(20, 184, 166, 0.2)' }}>
               <GitMerge style={{ color: 'var(--accent-pink)' }} size={24} />
             </div>
             <div>

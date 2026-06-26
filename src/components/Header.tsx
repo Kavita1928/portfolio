@@ -25,10 +25,6 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
   const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Resume', href: '#resume' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Achievements', href: '#achievements' },
     { name: 'Contact', href: '#contact' },
   ];
 
