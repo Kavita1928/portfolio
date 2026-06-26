@@ -1,32 +1,65 @@
-# React + TypeScript + Vite
+# 🌟 Kavita Yadav - Interactive Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An executive, high-impact developer portfolio website showcasing full stack credentials, B.Tech ECE coursework at IIIT Guwahati, GSSoC open-source mentoring, and hackathon achievements. 
 
-Currently, two official plugins are available:
+Features interactive 3D WebGL background simulations, custom Light/Dark (Day/Night) color themes, and a custom-designed animated robot chatbot assistant.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Live Link**: [https://Kavita1928.github.io/portfolio/](https://Kavita1928.github.io/portfolio/)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Key Features
 
-## Expanding the Oxlint configuration
+*   **Dual 3D WebGL Backdrops**:
+    *   **Hero Section**: Interactive 1,200 particle node sphere and inner wireframe core reacting dynamically to cursor movement.
+    *   **Footer**: A mathematical wave plane simulating flowing data packets.
+*   **Playful Robot Chatbot (KY-Bot)**: An integrated interactive assistant designed as a custom robot mascot (complete with bobbing head, blinking eyes, chest monitor screen, typing arms, and swinging legs) to answer questions about skills, projects, and contact info.
+*   **Executive Theme Engine**: Full Day & Night toggle support resolving to a hand-crafted Emerald Green, Teal, and Cool Slate developer palette (no generic template or AI-builder appearance).
+*   **Resume Downloader Card**: Simplified card containing curriculum vitae summary details and direct download actions for the official PDF resume.
+*   **Fully Responsive & Accessible**: Optimized for mobile viewports, tablets, and large displays with screen reader attributes.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+---
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## 🛠️ Technology Stack
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+*   **Core Frame**: React 18, TypeScript, Vite
+*   **Graphics**: Three.js (WebGL renderer)
+*   **Icons**: Lucide React
+*   **Styling**: Custom Vanilla CSS (fluid layouts, glassmorphism card panels, theme token variables)
+*   **Deployment**: GitHub Actions (Workflow automated compilation on main push) & GitHub Pages
+
+---
+
+## 💻 Local Development Setup
+
+To run the portfolio site locally:
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/Kavita1928/portfolio.git
+    cd portfolio
+    ```
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+    *Access the site locally at `http://localhost:5173/`.*
+
+4.  **Build production assets**:
+    ```bash
+    npm run build
+    ```
+
+---
+
+## 📬 Contact & Profiles
+
+*   **Email**: [kavita.yadav23b@iiitg.ac.in](mailto:kavita.yadav23b@iiitg.ac.in)
+*   **Phone**: +91 7398865618
+*   **LinkedIn**: [linkedin.com/in/kavita-yadav-63276a289](https://www.linkedin.com/in/kavita-yadav-63276a289/)
+*   **GitHub**: [github.com/Kavita1928](https://github.com/Kavita1928)
+*   **LeetCode**: [leetcode.com/u/Kavitayadav_123](https://leetcode.com/u/Kavitayadav_123/)
