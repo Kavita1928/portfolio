@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Header from './components/Header';
-import ThreeCanvas from './components/ThreeCanvas';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
@@ -33,12 +32,9 @@ export default function App() {
       {/* Sleek top-navigation header with Theme Toggle */}
       <Header theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Global 3D WebGL Background Canvas */}
-      <ThreeCanvas theme={theme} />
-
       {/* Main content sections */}
       <main style={{ flex: 1 }}>
-        <Hero />
+        <Hero theme={theme} />
         <About />
         <Experience />
         <Projects />
