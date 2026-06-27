@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Achievements from './components/Achievements';
+import PortfolioGame from './components/PortfolioGame';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Resume from './components/Resume';
@@ -32,6 +36,10 @@ export default function App() {
       <main style={{ flex: 1 }}>
         <Hero theme={theme} />
         <About />
+        <Experience />
+        <Projects />
+        <Achievements />
+        <PortfolioGame />
         <Resume />
         <Contact />
       </main>
