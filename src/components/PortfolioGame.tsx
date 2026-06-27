@@ -63,7 +63,11 @@ interface GameEntity {
   collected?: boolean;
 }
 
-export default function PortfolioGame() {
+interface PortfolioGameProps {
+  theme: 'dark' | 'light';
+}
+
+export default function PortfolioGame({ theme }: PortfolioGameProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
@@ -156,22 +160,37 @@ export default function PortfolioGame() {
     const container = containerRef.current;
     const canvas = canvasRef.current;
 
+    const isLight = theme === 'light';
+    
+    // Theme configurations for visibility
+    const bgHex = isLight ? 0xe2e8f0 : 0x070913; // Clean slate gray vs deep cyber navy
+    const roadHex = isLight ? 0xf1f5f9 : 0x0f1322; // Brighter road surfaces
+    const gridHex = isLight ? 0x0891b2 : 0xa855f7; // Cyan vs Violet neon tracks
+    const gridCenterHex = isLight ? 0x097969 : 0xf43f5e; // Center track lane highlights
+    const borderLineHex = isLight ? 0x0ea5e9 : 0x06b6d4; // Side lane boundaries
+    
+    // Vehicle color config
+    const carBodyHex = isLight ? 0x0284c7 : 0x06b6d4; // Shiny Blue vs Neon Cyan
+    const cabinHex = isLight ? 0xffffff : 0x1f243b; // White top vs dark purple core
+    const capHex = isLight ? 0x7c3aed : 0xf43f5e; // Violet hubcaps vs Rose neon rims
+
     // 3D Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x070913);
+    scene.background = new THREE.Color(bgHex);
 
-    // Fog for retro cyber glow depth
-    scene.fog = new THREE.FogExp2(0x070913, 0.08);
+    // Fog: Much lighter density (0.035 instead of 0.08) so hazards are visible in the distance
+    scene.fog = new THREE.FogExp2(bgHex, 0.035);
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
-      55,
+      52,
       container.clientWidth / container.clientHeight,
       0.1,
       100
     );
-    camera.position.set(0, 2.2, 5.0);
-    camera.lookAt(0, 0.6, -2);
+    // Adjusted slightly forward to give better focus on the rover
+    camera.position.set(0, 2.1, 4.8);
+    camera.lookAt(0, 0.55, -2);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -182,36 +201,49 @@ export default function PortfolioGame() {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
+    // Lights (significantly boosted intensities for "everything bright")
+    const ambientLight = new THREE.AmbientLight(0xffffff, isLight ? 0.95 : 0.65);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 0.85);
-    mainLight.position.set(5, 8, 3);
+    const mainLight = new THREE.DirectionalLight(0xffffff, isLight ? 1.2 : 1.35);
+    mainLight.position.set(5, 12, 4);
     scene.add(mainLight);
 
-    // Add neon track grid lights
-    const gridLight1 = new THREE.PointLight(0x06b6d4, 2, 20);
-    gridLight1.position.set(-3, 1, -5);
-    scene.add(gridLight1);
+    // Dynamic point lights for neon highway atmosphere
+    const trackLightLeft = new THREE.PointLight(0x06b6d4, isLight ? 1.0 : 3.0, 25);
+    trackLightLeft.position.set(-4, 2, -10);
+    scene.add(trackLightLeft);
 
-    const gridLight2 = new THREE.PointLight(0xf43f5e, 2, 20);
-    gridLight2.position.set(3, 1, -5);
-    scene.add(gridLight2);
+    const trackLightRight = new THREE.PointLight(0xa855f7, isLight ? 1.0 : 3.0, 25);
+    trackLightRight.position.set(4, 2, -10);
+    scene.add(trackLightRight);
 
-    // Cyber Highway / Grid Floor
+    // Cyber Highway: 1. Solid Road Plane (no longer driving in empty dark void)
     const gridWidth = 9;
     const gridLength = 50;
-    const gridHelper = new THREE.GridHelper(gridLength, 35, 0xa855f7, 0x1f243b);
-    gridHelper.position.set(0, 0, -10);
+    
+    const roadGeom = new THREE.PlaneGeometry(gridWidth, gridLength + 10);
+    const roadMat = new THREE.MeshStandardMaterial({
+      color: roadHex,
+      roughness: 0.5,
+      metalness: 0.3,
+    });
+    const roadPlane = new THREE.Mesh(roadGeom, roadMat);
+    roadPlane.rotation.x = -Math.PI / 2;
+    roadPlane.position.set(0, 0, -10);
+    scene.add(roadPlane);
+
+    // Cyber Highway: 2. Grid lines overlaid slightly above road plane to avoid clipping
+    const gridHelper = new THREE.GridHelper(gridLength, 35, gridCenterHex, gridHex);
+    gridHelper.position.set(0, 0.008, -10);
     scene.add(gridHelper);
 
     // Lateral border lines
     const borderGeom = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(-gridWidth / 2, 0.01, 10),
-      new THREE.Vector3(-gridWidth / 2, 0.01, -40),
+      new THREE.Vector3(-gridWidth / 2, 0.012, 10),
+      new THREE.Vector3(-gridWidth / 2, 0.012, -40),
     ]);
-    const borderMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, linewidth: 2 });
+    const borderMat = new THREE.LineBasicMaterial({ color: borderLineHex, linewidth: 3 });
     const leftBorder = new THREE.Line(borderGeom, borderMat);
     const rightBorder = leftBorder.clone();
     rightBorder.position.x = gridWidth;
@@ -224,36 +256,38 @@ export default function PortfolioGame() {
     scene.add(roverGroup);
 
     // 1. Rover Chassis
-    const bodyGeom = new THREE.BoxGeometry(0.8, 0.35, 1.4);
+    const bodyGeom = new THREE.BoxGeometry(0.82, 0.35, 1.4);
     const bodyMat = new THREE.MeshStandardMaterial({
-      color: 0x1f2937,
-      roughness: 0.2,
+      color: carBodyHex,
+      roughness: 0.1,
       metalness: 0.8,
+      emissive: carBodyHex,
+      emissiveIntensity: isLight ? 0.15 : 0.35,
     });
     const bodyMesh = new THREE.Mesh(bodyGeom, bodyMat);
     roverGroup.add(bodyMesh);
 
     // 2. Cabin top
-    const cabinGeom = new THREE.BoxGeometry(0.55, 0.25, 0.7);
+    const cabinGeom = new THREE.BoxGeometry(0.56, 0.26, 0.7);
     const cabinMat = new THREE.MeshStandardMaterial({
-      color: 0x374151,
-      roughness: 0.1,
+      color: cabinHex,
+      roughness: 0.05,
       metalness: 0.9,
     });
     const cabinMesh = new THREE.Mesh(cabinGeom, cabinMat);
     cabinMesh.position.set(0, 0.3, -0.1);
     roverGroup.add(cabinMesh);
 
-    // 3. Headlights & Cyber Neon Bar
+    // 3. Glowing neon strips
     const neonBarGeom = new THREE.BoxGeometry(0.7, 0.06, 0.08);
-    const neonBarMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+    const neonBarMat = new THREE.MeshBasicMaterial({ color: isLight ? 0x0ea5e9 : 0x06b6d4 });
     const neonBar = new THREE.Mesh(neonBarGeom, neonBarMat);
     neonBar.position.set(0, 0.1, 0.7);
     roverGroup.add(neonBar);
 
     // Headlights
-    const lightGeom = new THREE.SphereGeometry(0.08, 8, 8);
-    const lightMat = new THREE.MeshBasicMaterial({ color: 0xfbfbfb });
+    const lightGeom = new THREE.SphereGeometry(0.09, 8, 8);
+    const lightMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const leftLight = new THREE.Mesh(lightGeom, lightMat);
     leftLight.position.set(-0.25, -0.05, 0.71);
     const rightLight = leftLight.clone();
@@ -261,24 +295,47 @@ export default function PortfolioGame() {
     roverGroup.add(leftLight);
     roverGroup.add(rightLight);
 
-    // 4. Cylinder Wheels
-    const wheelGeom = new THREE.CylinderGeometry(0.24, 0.24, 0.18, 12);
-    const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.8 });
+    // Real headlight spotlights projecting forward onto obstacles/road
+    const headlightsSpot = new THREE.SpotLight(0xffffff, isLight ? 2.0 : 6.0, 18, Math.PI / 4, 0.4, 1.0);
+    headlightsSpot.position.set(0, 0.05, 0.7);
+    headlightsSpot.target.position.set(0, -0.15, 8); // project forward and slightly down
+    roverGroup.add(headlightsSpot);
+    roverGroup.add(headlightsSpot.target);
+
+    // 4. Cylinder Wheels with Hubcaps
+    const wheelGeom = new THREE.CylinderGeometry(0.25, 0.25, 0.18, 12);
+    const wheelMat = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.8 });
     
-    const wheels: THREE.Mesh[] = [];
+    const capGeom = new THREE.CylinderGeometry(0.12, 0.12, 0.20, 10);
+    const capMat = new THREE.MeshStandardMaterial({
+      color: capHex,
+      emissive: capHex,
+      emissiveIntensity: 0.5,
+    });
+
+    const wheels: THREE.Object3D[] = [];
     const wheelPositions = [
-      { x: -0.48, y: -0.1, z: 0.4 }, // Front Left
-      { x: 0.48, y: -0.1, z: 0.4 },  // Front Right
-      { x: -0.48, y: -0.1, z: -0.4 }, // Back Left
-      { x: 0.48, y: -0.1, z: -0.4 },  // Back Right
+      { x: -0.49, y: -0.1, z: 0.4 }, // Front Left
+      { x: 0.49, y: -0.1, z: 0.4 },  // Front Right
+      { x: -0.49, y: -0.1, z: -0.4 }, // Back Left
+      { x: 0.49, y: -0.1, z: -0.4 },  // Back Right
     ];
 
     wheelPositions.forEach((pos) => {
+      const wheelContainer = new THREE.Group();
+      wheelContainer.position.set(pos.x, pos.y, pos.z);
+      
       const wheel = new THREE.Mesh(wheelGeom, wheelMat);
-      wheel.rotation.z = Math.PI / 2; // Orient sideways
-      wheel.position.set(pos.x, pos.y, pos.z);
-      roverGroup.add(wheel);
-      wheels.push(wheel);
+      wheel.rotation.z = Math.PI / 2;
+      wheelContainer.add(wheel);
+
+      // Neon Hubcap
+      const hubcap = new THREE.Mesh(capGeom, capMat);
+      hubcap.rotation.z = Math.PI / 2;
+      wheelContainer.add(hubcap);
+      
+      roverGroup.add(wheelContainer);
+      wheels.push(wheelContainer);
     });
 
     // Particle collision explosion pool
@@ -297,7 +354,7 @@ export default function PortfolioGame() {
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
     const particleMat = new THREE.PointsMaterial({
       color: 0x06b6d4,
-      size: 0.15,
+      size: 0.18,
       transparent: true,
       opacity: 0,
       blending: THREE.AdditiveBlending,
@@ -314,11 +371,11 @@ export default function PortfolioGame() {
         positionsAttr.setXYZ(i, position.x, position.y, position.z);
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos(2.0 * Math.random() - 1.0);
-        const speed = 2.0 + Math.random() * 3.0;
+        const speed = 2.0 + Math.random() * 3.5;
 
         particleVelocities[i].set(
           speed * Math.sin(phi) * Math.cos(theta),
-          speed * Math.sin(phi) * Math.sin(theta) + 1.0,
+          speed * Math.sin(phi) * Math.sin(theta) + 1.2,
           speed * Math.cos(phi)
         );
       }
@@ -360,7 +417,7 @@ export default function PortfolioGame() {
         });
 
         // 1. Rover Steering Movement
-        const speed = 4.5;
+        const speed = 4.8;
         if (stateRef.current.keys.Left) {
           stateRef.current.roverX -= speed * delta;
           roverGroup.rotation.z = THREE.MathUtils.lerp(roverGroup.rotation.z, 0.15, 0.1);
@@ -383,7 +440,7 @@ export default function PortfolioGame() {
 
         // 2. Entity Spawning
         spawnTimer += delta;
-        const spawnInterval = Math.max(0.75, 1.6 - (stateRef.current.score * 0.02));
+        const spawnInterval = Math.max(0.7, 1.5 - (stateRef.current.score * 0.02));
         if (spawnTimer >= spawnInterval) {
           spawnTimer = 0;
           
@@ -393,11 +450,14 @@ export default function PortfolioGame() {
           if (isGem) {
             const gemGeom = new THREE.IcosahedronGeometry(0.35, 1);
             const chosenColorHex = [0x06b6d4, 0xa855f7, 0xf43f5e][Math.floor(Math.random() * 3)];
+            
+            // Highly emissive shiny gem material
             const gemMat = new THREE.MeshStandardMaterial({
               color: chosenColorHex,
-              roughness: 0.1,
-              metalness: 0.9,
-              flatShading: true,
+              emissive: chosenColorHex,
+              emissiveIntensity: 0.8, // Glowing gems
+              roughness: 0.05,
+              metalness: 0.95,
             });
             const gemMesh = new THREE.Mesh(gemGeom, gemMat);
             gemMesh.position.set(spawnX, 0.5, -35);
@@ -408,16 +468,18 @@ export default function PortfolioGame() {
             stateRef.current.activeEntities.push({
               mesh: gemMesh,
               type: 'gem',
-              speed: 10 + Math.random() * 5,
+              speed: 10.5 + Math.random() * 5.0,
               label: labelStr,
             });
           } else {
+            // Highly visible spiky bugs - bright red warning signals
             const bugGeom = new THREE.ConeGeometry(0.35, 0.8, 4);
             const bugMat = new THREE.MeshStandardMaterial({
-              color: 0xef4444,
-              roughness: 0.3,
-              metalness: 0.7,
-              emissive: 0x500000,
+              color: 0xff3b30,
+              emissive: 0xff0000,
+              emissiveIntensity: 1.0, // High-emissive glow to see through dark fog!
+              roughness: 0.1,
+              metalness: 0.8,
             });
             const bugMesh = new THREE.Mesh(bugGeom, bugMat);
             bugMesh.rotation.x = Math.PI;
@@ -427,7 +489,7 @@ export default function PortfolioGame() {
             stateRef.current.activeEntities.push({
               mesh: bugMesh,
               type: 'bug',
-              speed: 11 + Math.random() * 4,
+              speed: 11.5 + Math.random() * 4.0,
             });
           }
         }
@@ -480,7 +542,7 @@ export default function PortfolioGame() {
                 }
                 return next;
               });
-              triggerExplosion(ent.mesh.position, 0xef4444);
+              triggerExplosion(ent.mesh.position, 0xff3b30);
             }
 
             scene.remove(ent.mesh);
@@ -524,25 +586,31 @@ export default function PortfolioGame() {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
       
+      roadGeom.dispose();
       gridHelper.geometry.dispose();
       bodyGeom.dispose();
       cabinGeom.dispose();
       neonBarGeom.dispose();
       lightGeom.dispose();
       wheelGeom.dispose();
+      capGeom.dispose();
       particleGeometry.dispose();
       
+      roadMat.dispose();
       borderMat.dispose();
       bodyMat.dispose();
       cabinMat.dispose();
       neonBarMat.dispose();
       lightMat.dispose();
       wheelMat.dispose();
+      capMat.dispose();
       particleMat.dispose();
       
       renderer.dispose();
     };
-  }, [muted]);
+  }, [theme, muted]);
+
+  const isLight = theme === 'light';
 
   return (
     <section id="game" className="section" style={{ padding: '60px 24px', position: 'relative' }}>
@@ -592,10 +660,11 @@ export default function PortfolioGame() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                backgroundColor: 'rgba(7, 9, 19, 0.75)',
+                backgroundColor: isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(7, 9, 19, 0.85)',
                 padding: '8px 16px',
                 borderRadius: '8px',
-                border: '1px solid rgba(6, 182, 212, 0.25)',
+                border: isLight ? '1px solid rgba(8, 145, 178, 0.3)' : '1px solid rgba(6, 182, 212, 0.25)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
                 color: 'var(--text-primary)',
               }}
             >
@@ -610,10 +679,11 @@ export default function PortfolioGame() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                backgroundColor: 'rgba(7, 9, 19, 0.75)',
+                backgroundColor: isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(7, 9, 19, 0.85)',
                 padding: '8px 16px',
                 borderRadius: '8px',
-                border: '1px solid rgba(244, 63, 94, 0.25)',
+                border: isLight ? '1px solid rgba(219, 39, 119, 0.3)' : '1px solid rgba(244, 63, 94, 0.25)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
                 color: 'var(--text-primary)',
               }}
             >
@@ -631,16 +701,16 @@ export default function PortfolioGame() {
           <div
             style={{
               position: 'absolute',
-              bottom: '30px',
+              bottom: '35px',
               left: '50%',
               transform: 'translateX(-50%)',
-              backgroundColor: 'rgba(6, 182, 212, 0.9)',
+              backgroundColor: 'rgba(6, 182, 212, 0.95)',
               color: '#ffffff',
-              padding: '6px 14px',
+              padding: '6px 16px',
               borderRadius: '20px',
-              fontSize: '0.88rem',
+              fontSize: '0.9rem',
               fontWeight: 700,
-              boxShadow: '0 0 15px rgba(6, 182, 212, 0.5)',
+              boxShadow: '0 0 15px rgba(6, 182, 212, 0.4)',
               pointerEvents: 'none',
               zIndex: 5,
             }}
@@ -656,8 +726,8 @@ export default function PortfolioGame() {
             position: 'absolute',
             bottom: '20px',
             right: '20px',
-            backgroundColor: 'rgba(7, 9, 19, 0.75)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(7, 9, 19, 0.85)',
+            border: isLight ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '50%',
             width: '36px',
             height: '36px',
@@ -681,7 +751,7 @@ export default function PortfolioGame() {
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: 'rgba(7, 9, 19, 0.75)',
+              backgroundColor: isLight ? 'rgba(226, 232, 240, 0.88)' : 'rgba(7, 9, 19, 0.82)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -689,7 +759,7 @@ export default function PortfolioGame() {
               zIndex: 10,
               padding: '24px',
               textAlign: 'center',
-              backdropFilter: 'blur(4px)',
+              backdropFilter: 'blur(5px)',
             }}
           >
             <h3
@@ -731,7 +801,7 @@ export default function PortfolioGame() {
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: 'rgba(15, 23, 42, 0.85)',
+              backgroundColor: isLight ? 'rgba(226, 232, 240, 0.95)' : 'rgba(15, 23, 42, 0.88)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -769,10 +839,10 @@ export default function PortfolioGame() {
                 display: 'flex',
                 gap: '24px',
                 marginBottom: '32px',
-                backgroundColor: 'rgba(7, 9, 19, 0.5)',
+                backgroundColor: isLight ? 'rgba(0, 0, 0, 0.03)' : 'rgba(7, 9, 19, 0.5)',
                 padding: '12px 28px',
                 borderRadius: '12px',
-                border: '1px solid rgba(255,255,255,0.05)',
+                border: isLight ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(255,255,255,0.05)',
               }}
             >
               <div>

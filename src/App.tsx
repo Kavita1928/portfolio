@@ -39,7 +39,7 @@ export default function App() {
         <Experience />
         <Projects />
         <Achievements />
-        <PortfolioGame />
+        <PortfolioGame theme={theme} />
         <Resume />
         <Contact />
       </main>
