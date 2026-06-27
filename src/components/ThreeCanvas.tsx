@@ -18,26 +18,26 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
 
     const isLight = theme === 'light';
     
-    // Theme-based 3D color choices for wireframe and core
-    const colorWireframe = isLight ? 0x0d9488 : 0x14b8a6; // Teal
-    const colorCore = isLight ? 0xe11d48 : 0xf43f5e; // Rose Core
+    // Theme-based 3D color choices for wireframe and core (subtle and minimal)
+    const colorWireframe = isLight ? 0x0891b2 : 0x06b6d4; // Cyan accent lines
+    const colorCore = isLight ? 0x64748b : 0x475569; // Minimal slate core
     
-    const colorLight1 = isLight ? 0x0d9488 : 0x14b8a6;
-    const colorLight2 = isLight ? 0xe11d48 : 0xf43f5e;
+    const colorLight1 = isLight ? 0x0891b2 : 0x06b6d4;
+    const colorLight2 = isLight ? 0x475569 : 0x334155;
 
-    // Multi-color palette choices for particle system
+    // Monochromatic Silver/White stars (Minimalist, removing rainbow clutter)
     const colorChoices = isLight
       ? [
-          new THREE.Color('#0d9488'), // Teal
-          new THREE.Color('#0891b2'), // Cyan
-          new THREE.Color('#db2777'), // Pink
-          new THREE.Color('#ea580c'), // Orange/Amber
+          new THREE.Color('#94a3b8'), // Slate-400
+          new THREE.Color('#cbd5e1'), // Slate-300
+          new THREE.Color('#e2e8f0'), // Slate-200
+          new THREE.Color('#64748b'), // Slate-500
         ]
       : [
-          new THREE.Color('#14b8a6'), // Teal
-          new THREE.Color('#06b6d4'), // Cyan
-          new THREE.Color('#f43f5e'), // Rose/Coral
-          new THREE.Color('#f59e0b'), // Amber/Gold
+          new THREE.Color('#ffffff'), // Glowing White
+          new THREE.Color('#f8fafc'), // Silver-Slate
+          new THREE.Color('#cbd5e1'), // Muted Silver
+          new THREE.Color('#94a3b8'), // Slate-400
         ];
 
     // Scene
@@ -52,7 +52,7 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
     );
     camera.position.z = 8;
 
-    // Shift camera/scene to the right on desktop, center on mobile
+    // Shift camera/scene to the right on desktop initially
     scene.position.x = window.innerWidth > 992 ? 1.8 : 0;
 
     // Renderer
@@ -65,19 +65,19 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, isLight ? 0.7 : 0.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, isLight ? 0.75 : 0.45);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(colorLight1, 2.5, 50);
+    const pointLight1 = new THREE.PointLight(colorLight1, 2.0, 50);
     pointLight1.position.set(5, 5, 5);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(colorLight2, 2.5, 50);
+    const pointLight2 = new THREE.PointLight(colorLight2, 2.0, 50);
     pointLight2.position.set(-5, -5, 5);
     scene.add(pointLight2);
 
     // Objects
-    // 1. Particle Sphere (dynamic star field / data node network)
+    // 1. Particle Sphere (monochromatic star field)
     const particleCount = 1200;
     const particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
@@ -92,7 +92,6 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
       
-      // Randomize distance slightly to create depth
       const r = radius * (0.85 + Math.random() * 0.3);
 
       const x = r * Math.sin(phi) * Math.cos(theta);
@@ -107,7 +106,7 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
       originalPositions[i * 3 + 1] = y;
       originalPositions[i * 3 + 2] = z;
 
-      // Assign random color from palette
+      // Assign random monochromatic color from palette
       const chosenColor = colorChoices[Math.floor(Math.random() * colorChoices.length)];
       colors[i * 3] = chosenColor.r;
       colors[i * 3 + 1] = chosenColor.g;
@@ -120,9 +119,9 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
     // Material with round soft particles
     const particleMaterial = new THREE.PointsMaterial({
       vertexColors: true,
-      size: 0.05,
+      size: 0.048,
       transparent: true,
-      opacity: isLight ? 0.75 : 0.9,
+      opacity: isLight ? 0.65 : 0.8,
       sizeAttenuation: true,
       blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending,
     });
@@ -130,7 +129,7 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particleSystem);
 
-    // 2. Wireframe Central Sphere (dynamic developer grid)
+    // 2. Wireframe Central Sphere
     const sphereGeometry = new THREE.SphereGeometry(2.2, 24, 24);
     const sphereMaterial = new THREE.MeshBasicMaterial({
       color: colorWireframe,
@@ -142,13 +141,13 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
     const wireframeSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(wireframeSphere);
 
-    // 3. Inner Icosahedron Core (floating data cell)
+    // 3. Inner Icosahedron Core (minimalist slate core)
     const coreGeometry = new THREE.IcosahedronGeometry(1.2, 1);
     const coreMaterial = new THREE.MeshBasicMaterial({
       color: colorCore,
       wireframe: true,
       transparent: true,
-      opacity: isLight ? 0.4 : 0.25,
+      opacity: isLight ? 0.35 : 0.22,
       blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending,
     });
     const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
@@ -162,7 +161,7 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Scroll Interaction
+    // Scroll Interaction (tracks page-wide scroll progress)
     let scrollY = window.scrollY;
     const handleScroll = () => {
       scrollY = window.scrollY;
@@ -174,10 +173,6 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
       if (!container) return;
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
-      
-      // Shift scene on desktop, center on mobile
-      scene.position.x = window.innerWidth > 992 ? 1.8 : 0;
-
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
@@ -197,14 +192,47 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
 
-      // Scroll factor calculations (fade/scale/move over 700px of scrolling)
-      const targetScroll = 700;
-      const scrollRatio = Math.min(scrollY / targetScroll, 1.0);
+      // Document-wide scroll ratio (0.0 to 1.0)
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollRatio = docHeight > 0 ? Math.min(scrollY / docHeight, 1.0) : 0;
 
-      // Base scaling factor
-      const baseScale = 1.0 - scrollRatio * 0.45; // scale down to 55%
+      // Determine targets for side-to-side scrolling animation matching sections
+      let targetX = 0;
+      let targetY = 0;
+      let targetScale = 1.0;
+      
+      const isDesktop = window.innerWidth > 992;
+      
+      if (scrollRatio < 0.2) {
+        // Hero section (Shift right)
+        targetX = isDesktop ? 1.8 : 0;
+        targetY = 0;
+        targetScale = 1.0;
+      } else if (scrollRatio < 0.55) {
+        // About & Experience (Shift left to sit opposite text blocks)
+        targetX = isDesktop ? -1.8 : 0;
+        targetY = 0.3;
+        targetScale = 0.78;
+      } else if (scrollRatio < 0.85) {
+        // Projects & Achievements (Shift right)
+        targetX = isDesktop ? 1.8 : 0;
+        targetY = -0.3;
+        targetScale = 0.65;
+      } else {
+        // Playground & Contact (Center)
+        targetX = 0;
+        targetY = -0.8;
+        targetScale = 0.48;
+      }
 
-      // Rotate objects (speed up rotation slightly with scroll)
+      // Smoothly lerp position and scale transforms
+      scene.position.x += (targetX - scene.position.x) * 0.05;
+      scene.position.y += (targetY - scene.position.y) * 0.05;
+
+      const currentScale = THREE.MathUtils.lerp(particleSystem.scale.x, targetScale, 0.05);
+      particleSystem.scale.set(currentScale, currentScale, currentScale);
+
+      // Rotate objects (incorporate scroll speedups)
       particleSystem.rotation.y = elapsedTime * 0.04 + scrollRatio * 1.5;
       particleSystem.rotation.x = elapsedTime * 0.02 + scrollRatio * 0.5;
 
@@ -216,27 +244,20 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
 
       // Pulse effects
       const pulseFactor = Math.sin(elapsedTime * 2) * 0.1;
-      const wireframeScale = baseScale * (1 + pulseFactor);
+      const wireframeScale = currentScale * (1 + pulseFactor);
       wireframeSphere.scale.set(wireframeScale, wireframeScale, wireframeScale);
       
       const corePulse = Math.cos(elapsedTime * 3) * 0.15;
-      const coreScale = baseScale * (1 + corePulse);
+      const coreScale = currentScale * (1 + corePulse);
       coreMesh.scale.set(coreScale, coreScale, coreScale);
 
-      particleSystem.scale.set(baseScale, baseScale, baseScale);
-
-      // Shift position based on scroll (moves up and slightly right)
-      const basePosX = window.innerWidth > 992 ? 1.8 : 0;
-      scene.position.x = basePosX;
-      scene.position.y = scrollRatio * 3.5;
-
-      // Fade out materials based on scroll
-      const fadeFactor = 1.0 - scrollRatio;
-      particleMaterial.opacity = (isLight ? 0.75 : 0.9) * fadeFactor;
+      // Fade out subtly toward the bottom of the page (keeping it visible as a background)
+      const fadeFactor = 1.0 - scrollRatio * 0.6;
+      particleMaterial.opacity = (isLight ? 0.65 : 0.8) * fadeFactor;
       sphereMaterial.opacity = (isLight ? 0.22 : 0.15) * fadeFactor;
-      coreMaterial.opacity = (isLight ? 0.4 : 0.25) * fadeFactor;
+      coreMaterial.opacity = (isLight ? 0.35 : 0.22) * fadeFactor;
 
-      // Subtle mouse tracking parallax offsets
+      // Mouse parallax offsets
       scene.rotation.y = mouseRef.current.x * 0.8;
       scene.rotation.x = mouseRef.current.y * 0.8;
 
@@ -248,10 +269,8 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
         const y = originalPositions[i3 + 1];
         const z = originalPositions[i3 + 2];
 
-        // Wave formula based on position and time
         const wave = Math.sin(elapsedTime * 1.5 + (x + y + z) * 0.5) * 0.08;
         
-        // Push particles along their position vector
         positionsAttr.setXYZ(
           i,
           x + (x / radius) * wave,
@@ -273,7 +292,6 @@ export default function ThreeCanvas({ theme }: ThreeCanvasProps) {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
       
-      // Memory cleanup
       particleGeometry.dispose();
       particleMaterial.dispose();
       sphereGeometry.dispose();

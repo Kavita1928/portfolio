@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ThreeCanvas from './ThreeCanvas';
 import { ArrowRight, Download, Award, GitMerge, Zap, Phone, Mail } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
@@ -44,7 +43,7 @@ const LeetcodeIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
+export default function Hero() {
   const [typedText, setTypedText] = useState('');
   const [index, setIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0);
@@ -92,8 +91,7 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
         overflow: 'hidden',
       }}
     >
-      {/* 3D WebGL Background Canvas */}
-      <ThreeCanvas theme={theme} />
+
 
       {/* Hero Content Overlay */}
       <div className="hero-container animate-fadeInUp">
