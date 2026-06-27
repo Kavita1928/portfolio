@@ -96,186 +96,238 @@ export default function Hero({ theme }: { theme: 'dark' | 'light' }) {
       <ThreeCanvas theme={theme} />
 
       {/* Hero Content Overlay */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 10,
-          textAlign: 'center',
-          maxWidth: '950px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '20px',
-        }}
-        className="animate-fadeInUp"
-      >
-        <span
-          style={{
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.2em',
-            color: 'var(--accent-cyan)',
-            background: 'rgba(16, 185, 129, 0.06)',
-            padding: '6px 16px',
-            borderRadius: '20px',
-            border: '1px solid rgba(16, 185, 129, 0.15)',
-          }}
-        >
-          Welcome to my Space
-        </span>
-
-        <h1
-          style={{
-            fontSize: 'clamp(3rem, 8vw, 5rem)',
-            lineHeight: 1.1,
-            margin: 0,
-            fontFamily: 'var(--font-heading)',
-            fontWeight: 800,
-            letterSpacing: '-0.03em',
-          }}
-        >
-          Hi, I am{' '}
+      <div className="hero-container animate-fadeInUp">
+        <div className="hero-text-content">
           <span
             style={{
-              background: 'linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-violet) 50%, var(--accent-pink) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.2em',
+              color: 'var(--accent-cyan)',
+              background: 'rgba(16, 185, 129, 0.06)',
+              padding: '6px 16px',
+              borderRadius: '20px',
+              border: '1px solid rgba(16, 185, 129, 0.15)',
             }}
           >
-            Kavita Yadav
+            Welcome to my Space
           </span>
-        </h1>
 
-        {/* Dynamic Typewriter */}
-        <h2
-          style={{
-            fontSize: 'clamp(1.1rem, 3.5vw, 1.8rem)',
-            color: 'var(--text-secondary)',
-            fontWeight: 500,
-            minHeight: '2rem',
-            margin: 0,
-          }}
-        >
-          I'm a <span style={{ color: 'var(--text-primary)', borderRight: '2px solid var(--accent-cyan)', paddingRight: '4px' }}>{typedText}</span>
-        </h2>
+          <h1
+            style={{
+              fontSize: 'clamp(3rem, 8vw, 5rem)',
+              lineHeight: 1.1,
+              margin: 0,
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 800,
+              letterSpacing: '-0.03em',
+            }}
+          >
+            Hi, I am{' '}
+            <span
+              style={{
+                background: 'linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-violet) 50%, var(--accent-pink) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Kavita Yadav
+            </span>
+          </h1>
 
-        {/* --- Resume Contact Header (Contact Details on Top) --- */}
-        <div
-          className="hero-contact-row"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '20px',
-            margin: '8px 0 16px 0',
-            fontSize: '0.9rem',
-            color: 'var(--text-secondary)',
-            backgroundColor: 'rgba(255, 255, 255, 0.02)',
-            padding: '12px 24px',
-            borderRadius: '12px',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(8px)',
-          }}
-        >
-          <a href="tel:+917398865618" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
-            <Phone size={15} style={{ color: 'var(--accent-cyan)' }} />
-            <span>7398865618</span>
-          </a>
-          <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="mailto:kavita.yadav23b@iiitg.ac.in" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
-            <Mail size={15} style={{ color: 'var(--accent-cyan)' }} />
-            <span>kavita.yadav23b@iiitg.ac.in</span>
-          </a>
-          <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="https://www.linkedin.com/in/kavita-yadav-63276a289/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
-            <LinkedinIcon size={15} />
-            <span>LinkedIn</span>
-          </a>
-          <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="https://github.com/Kavita1928" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
-            <GithubIcon size={15} />
-            <span>GitHub</span>
-          </a>
-          <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
-          <a href="https://leetcode.com/u/Kavitayadav_123/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
-            <LeetcodeIcon size={15} />
-            <span>LeetCode</span>
-          </a>
-        </div>
+          {/* Dynamic Typewriter */}
+          <h2
+            style={{
+              fontSize: 'clamp(1.1rem, 3.5vw, 1.8rem)',
+              color: 'var(--text-secondary)',
+              fontWeight: 500,
+              minHeight: '2rem',
+              margin: 0,
+            }}
+          >
+            I'm a <span style={{ color: 'var(--text-primary)', borderRight: '2px solid var(--accent-cyan)', paddingRight: '4px' }}>{typedText}</span>
+          </h2>
 
-        <p
-          style={{
-            fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)',
-            color: 'var(--text-secondary)',
-            maxWidth: '650px',
-            lineHeight: 1.6,
-            margin: 0,
-          }}
-        >
-          Building scalable, cloud-native web applications using MERN, Next.js, and AWS. Specializing in high-performance full-stack architectures and modern engineering solutions.
-        </p>
-
-        {/* Call to Actions */}
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '8px' }}>
-          <a href="https://github.com/Kavita1928/BeatSync" target="_blank" rel="noreferrer">
-            <button className="glow-button primary">
-              View Featured Project (BeatSync) <ArrowRight size={18} />
-            </button>
-          </a>
-          <a href="#resume">
-            <button className="glow-button secondary">
-              View & Download Resume <Download size={18} />
-            </button>
-          </a>
-        </div>
-
-        {/* Key Metrics Floating Grid */}
-        <div
-          className="metrics-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '20px',
-            width: '100%',
-            maxWidth: '800px',
-            marginTop: '40px',
-          }}
-        >
-          <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
-            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-              <Award style={{ color: 'var(--accent-cyan)' }} size={24} />
-            </div>
-            <div>
-              <h3 style={{ fontSize: '1.4rem', color: 'var(--accent-cyan)', margin: 0 }}>Top 2%</h3>
-              <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>HP PowerLabs Challenge</p>
-            </div>
+          {/* --- Resume Contact Header (Contact Details on Top) --- */}
+          <div className="hero-contact-row">
+            <a href="tel:+917398865618" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+              <Phone size={15} style={{ color: 'var(--accent-cyan)' }} />
+              <span>7398865618</span>
+            </a>
+            <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
+            <a href="mailto:kavita.yadav23b@iiitg.ac.in" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+              <Mail size={15} style={{ color: 'var(--accent-cyan)' }} />
+              <span>kavita.yadav23b@iiitg.ac.in</span>
+            </a>
+            <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
+            <a href="https://www.linkedin.com/in/kavita-yadav-63276a289/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+              <LinkedinIcon size={15} />
+              <span>LinkedIn</span>
+            </a>
+            <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
+            <a href="https://github.com/Kavita1928" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+              <GithubIcon size={15} />
+              <span>GitHub</span>
+            </a>
+            <span style={{ color: 'rgba(255,255,255,0.15)' }} className="divider">|</span>
+            <a href="https://leetcode.com/u/Kavitayadav_123/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="contact-link">
+              <LeetcodeIcon size={15} />
+              <span>LeetCode</span>
+            </a>
           </div>
 
-          <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
-            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(13, 148, 136, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(13, 148, 136, 0.2)' }}>
-              <Zap style={{ color: 'var(--accent-violet)' }} size={24} />
-            </div>
-            <div>
-              <h3 style={{ fontSize: '1.4rem', color: 'var(--accent-violet)', margin: 0 }}>Finalist</h3>
-              <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>Goldman Sachs Hackathon</p>
-            </div>
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)',
+              color: 'var(--text-secondary)',
+              maxWidth: '650px',
+              lineHeight: 1.6,
+              margin: 0,
+            }}
+          >
+            Building scalable, cloud-native web applications using MERN, Next.js, and AWS. Specializing in high-performance full-stack architectures and modern engineering solutions.
+          </p>
+
+          {/* Call to Actions */}
+          <div className="hero-ctas">
+            <a href="https://github.com/Kavita1928/BeatSync" target="_blank" rel="noreferrer">
+              <button className="glow-button primary">
+                View Featured Project (BeatSync) <ArrowRight size={18} />
+              </button>
+            </a>
+            <a href="#resume">
+              <button className="glow-button secondary">
+                View & Download Resume <Download size={18} />
+              </button>
+            </a>
           </div>
 
-          <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
-            <div className="icon-wrapper" style={{ backgroundColor: 'rgba(20, 184, 166, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(20, 184, 166, 0.2)' }}>
-              <GitMerge style={{ color: 'var(--accent-pink)' }} size={24} />
+          {/* Key Metrics Floating Grid */}
+          <div
+            className="metrics-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '20px',
+              width: '100%',
+              marginTop: '24px',
+            }}
+          >
+            <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
+              <div className="icon-wrapper" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                <Award style={{ color: 'var(--accent-cyan)' }} size={24} />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: 700, margin: 0 }}>Top 2%</h3>
+                <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>HP PowerLabs Challenge</p>
+              </div>
             </div>
-            <div>
-              <h3 style={{ fontSize: '1.4rem', color: 'var(--accent-pink)', margin: 0 }}>500+ PRs</h3>
-              <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>GirlScript Open Source</p>
+
+            <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
+              <div className="icon-wrapper" style={{ backgroundColor: 'rgba(13, 148, 136, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(13, 148, 136, 0.2)' }}>
+                <Zap style={{ color: 'var(--accent-violet)' }} size={24} />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: 700, margin: 0 }}>Finalist</h3>
+                <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>Goldman Sachs Hackathon</p>
+              </div>
+            </div>
+
+            <div className="glass-card metric-card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
+              <div className="icon-wrapper" style={{ backgroundColor: 'rgba(20, 184, 166, 0.1)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(20, 184, 166, 0.2)' }}>
+                <GitMerge style={{ color: 'var(--accent-pink)' }} size={24} />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: 700, margin: 0 }}>500+ PRs</h3>
+                <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>GirlScript Open Source</p>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Empty space placeholder for shifted Three.js globe on desktop */}
+        <div className="hero-canvas-frame"></div>
       </div>
 
       <style>{`
+        .hero-container {
+          position: relative;
+          z-index: 10;
+          width: 100%;
+          max-width: 1200px;
+          display: grid;
+          grid-template-columns: 1.25fr 0.75fr;
+          gap: 40px;
+          align-items: center;
+        }
+        .hero-text-content {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+          text-align: left;
+          width: 100%;
+        }
+        .hero-canvas-frame {
+          display: block;
+          height: 100%;
+          min-height: 400px;
+        }
+        .hero-contact-row {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 16px;
+          margin: 8px 0 16px 0;
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          background-color: var(--bg-card);
+          backdrop-filter: blur(12px);
+          padding: 10px 20px;
+          border-radius: 12px;
+          border: 1px solid var(--input-border);
+        }
+        .hero-contact-row a {
+          color: var(--text-secondary);
+          text-decoration: none;
+          transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .hero-contact-row a:hover {
+          color: var(--text-primary);
+          transform: translateY(-1px);
+        }
+        .hero-ctas {
+          display: flex;
+          gap: 16px;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          margin-top: 8px;
+        }
+        
+        @media (max-width: 992px) {
+          .hero-container {
+            grid-template-columns: 1fr;
+            text-align: center;
+            max-width: 800px;
+            gap: 20px;
+          }
+          .hero-text-content {
+            align-items: center;
+            text-align: center;
+          }
+          .hero-canvas-frame {
+            display: none;
+          }
+          .hero-contact-row {
+            justify-content: center;
+          }
+          .hero-ctas {
+            justify-content: center;
+          }
+        }
+
         @media (max-width: 768px) {
           .metrics-grid {
             grid-template-columns: 1fr !important;
