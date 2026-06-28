@@ -5,7 +5,6 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Achievements from './components/Achievements';
-import PortfolioGame from './components/PortfolioGame';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Resume from './components/Resume';
@@ -39,7 +38,6 @@ export default function App() {
         <Experience />
         <Projects />
         <Achievements />
-        <PortfolioGame theme={theme} />
         <Resume />
         <Contact />
       </main>

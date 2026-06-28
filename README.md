@@ -13,11 +13,9 @@ Instead of a dry, static resume, I wanted to build a place that feels alive, eng
 
 When I sat down to design my portfolio, I realized standard templates feel disconnected from a developer's actual personality. I wanted to capture the duality of my work:
 *   **The Structured Engineer**: My love for circuits, clean systems, full-stack logic, and open-source timelines (represented by the structured wireframe spheres, the cyan core, and the timeline cards).
-*   **The Creative Thinker**: My playful, aesthetic, and energetic side (represented by the drifting pink sakura petals, the warm sunset beach driving game, synthesized retro audio beeps, and my custom animated chatbot mascot, KY-Bot).
+*   **The Creative Thinker**: My playful, aesthetic, and energetic side (represented by the drifting pink sakura petals, custom animated chatbot mascot, and KY-Bot).
 
-I thought: *Why should a recruiter just read about React or Node.js when they can select an off-road SUV, drive down a winding sand racetrack at sunset, and literally collect my tech stack gems while dodging oncoming traffic?* 
-
-This portfolio is the combination of that dream—a playground that blends technical software architecture with game physics and natural cherry blossom aesthetics.
+This portfolio is the combination of that dream—a playground that blends technical software architecture with natural cherry blossom aesthetics.
 
 ---
 
@@ -26,12 +24,6 @@ This portfolio is the combination of that dream—a playground that blends techn
 *   **🌸 3D Sakura & Tech Core (Hero Section)**:
     *   A rotating cyan WebGL wireframe sphere and core (signifying technical structure) surrounded by **65 floating pink cherry blossom (sakura) petals** drifting in a gentle wind.
     *   **Proximity Mouse Scattering**: Hovering your mouse cursor pushes the petals away dynamically in real-time.
-*   **🎮 Sunset Beach Winding Drive (Playground)**:
-    *   An arcade driving mini-game where the road asphalt winds and curves dynamically left and right.
-    *   Checkered red-and-white racetrack curbs, warm sunset sand dunes, pink cherry blossom trees, and a teal ocean shoreline with rolling waves.
-    *   **Car Selection**: Choose between the **Red Off-Road SUV** (with roof rack), **Gold Racer** (with rear wing spoiler), or the heavy-duty **Voxel Truck** (with double rear tires) before starting.
-    *   **Oncoming Traffic**: Steer to dodge oncoming sedans and SUVs (replacing abstract obstacles) and gather floating knowledge gems (React, Next.js, Python, AWS).
-    *   **Zero-Asset Retro Sound Effects**: Custom synthesized audio sweeps and chime beeps using the Web Audio API.
 *   **🤖 Animated KY-Bot Chatbot Mascot**:
     *   A custom floating robot helper in the lower right corner featuring blinking eyes, a bobbing head, typing arms, a glowing chest screen, and swinging legs.
     *   Trained to chat about my achievements, projects, skills, and resume details.
